@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   .courses-toolbar {
     display: flex;
@@ -151,6 +152,36 @@
 </div>
 </section>
 </main>
+
+<div id="courseDrawer" class="course-drawer">
+  <div class="drawer-header">
+    <button id="closeDrawer">✕</button>
+    <h2 id="drawerCourse"></h2>
+    <p id="drawerTitle"></p>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-card">
+      <strong>Instructor</strong>
+      <p id="drawerInstructor"></p>
+    </div>
+    <div class="drawer-card">
+      <strong>Units</strong>
+      <p id="drawerUnits"></p>
+    </div>
+    <div class="drawer-card">
+      <strong>Total SCH</strong>
+      <p id="drawerSCH"></p>
+    </div>
+    <div class="drawer-card">
+      <strong>Growth</strong>
+      <p id="drawerGrowth"></p>
+    </div>
+    <div style="height: 260px;">
+      <canvas id="courseChart"></canvas>
+    </div>
+  </div>
+</div>
+
 <footer>
 <div class="footer-text">USC Iovine and Young Academy • Academic Portfolio Dashboard</div>
 </footer>
