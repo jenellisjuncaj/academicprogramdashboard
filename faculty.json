@@ -1,0 +1,50 @@
+{
+  "faculty": [
+    {
+      "name": "Doug Thomas",
+      "totalSCH": 1204,
+      "soloSCH": 1204,
+      "coTaughtSCH": 0,
+      "totalEnrollment": 301
+    },
+
+    {
+      "name": "Michael Kanazawa",
+      "totalSCH": 1172,
+      "soloSCH": 1040,
+      "coTaughtSCH": 132,
+      "totalEnrollment": 293
+    },
+
+    {
+      "name": "Aaron Siegel",
+      "totalSCH": 989.5,
+      "soloSCH": 976,
+      "coTaughtSCH": 13.5,
+      "totalEnrollment": 285.5
+    },
+
+    {
+      "name": "Grant Delgatty",
+      "totalSCH": 896,
+      "soloSCH": 896,
+      "coTaughtSCH": 0,
+      "totalEnrollment": 224
+    },
+
+    {
+      "name": "Yihyun Lim",
+      "totalSCH": 838,
+      "soloSCH": 690,
+      "coTaughtSCH": 148,
+      "totalEnrollment": 217
+    }
+  ],
+
+  "summary": {
+    "topFacultyBySCH": "Doug Thomas",
+    "highestSoloSCH": "Doug Thomas",
+    "highestCoTeachingContribution": "Yihyun Lim",
+    "analysisPeriod": "Fall 20243 - Fall 20263"
+  }
+}
