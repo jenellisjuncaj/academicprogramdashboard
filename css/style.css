@@ -1,0 +1,322 @@
+/* ==========================================
+   IYA Academic Portfolio Dashboard
+   ADHD-Friendly + Accessible Design System
+   ========================================== */
+
+:root {
+  --background: #F5F2EB;
+  --card: #FFFFFF;
+  --forest: #1F2D20;
+  --usc-red: #8C1515;
+  --design: #4D7A5A;
+  --business: #B88A2A;
+  --technology: #4C6F91;
+  --cbrl: #B65E3C;
+  --border: #E5DED3;
+  --shadow: 0 4px 16px rgba(0,0,0,.05);
+}
+
+/* ==========================================
+   RESET
+   ========================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--forest);
+  font-family: "Inter", sans-serif;
+  line-height: 1.8;
+  letter-spacing: .01em;
+}
+
+/* ==========================================
+   PAGE LAYOUT
+   ========================================== */
+.page-wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+/* ==========================================
+   HERO
+   ========================================== */
+.hero {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.hero-content {
+  max-width: 900px;
+}
+
+.eyebrow {
+  color: var(--usc-red);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: .08em;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: .95rem;
+  font-weight: 600;
+}
+
+/* ==========================================
+   SECTIONS
+   ========================================== */
+section {
+  margin-top: 56px;
+  margin-bottom: 56px;
+}
+
+.section-title {
+  font-family: "DM Serif Display", serif;
+  font-size: 2rem;
+  margin-bottom: 24px;
+}
+
+/* ==========================================
+   CARDS
+   ========================================== */
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+.chart-card {
+  min-height: 500px;
+}
+
+/* ==========================================
+   KPI CARDS
+   ========================================== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.kpi-card {
+  text-align: center;
+}
+
+.kpi-label {
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #666;
+}
+
+.kpi-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--usc-red);
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.kpi-note {
+  color: #666;
+  font-size: .95rem;
+}
+
+/* ==========================================
+   DOMAIN CARDS
+   ========================================== */
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.domain-card {
+  text-align: center;
+}
+
+.domain-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.domain-sch {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.design {
+  border-top: 6px solid var(--design);
+}
+
+.business {
+  border-top: 6px solid var(--business);
+}
+
+.technology {
+  border-top: 6px solid var(--technology);
+}
+
+.cbrl {
+  border-top: 6px solid var(--cbrl);
+}
+
+.growth-positive {
+  color: var(--design);
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.growth-neutral {
+  color: var(--technology);
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+/* ==========================================
+   TABLES
+   ========================================== */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #faf7f3;
+}
+
+th {
+  text-align: left;
+  padding: 18px;
+  font-weight: 700;
+}
+
+td {
+  padding: 18px;
+  border-top: 1px solid var(--border);
+}
+
+tbody tr:hover {
+  background: rgba(0,0,0,.02);
+}
+
+/* ==========================================
+   RECOMMENDATIONS
+   ========================================== */
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.recommendation-card h3 {
+  margin-top: 0;
+  color: var(--usc-red);
+}
+
+.recommendation-card p {
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   CHARTS
+   ========================================== */
+canvas {
+  width: 100% !important;
+  height: 420px !important;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.footer-text {
+  text-align: center;
+  color: #666;
+  font-size: .9rem;
+}
+
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+:focus-visible {
+  outline: 3px solid var(--usc-red);
+  outline-offset: 3px;
+}
+
+button {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .kpi-value {
+    font-size: 2.25rem;
+  }
+
+  canvas {
+    height: 320px !important;
+  }
+}
