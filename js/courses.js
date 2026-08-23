@@ -202,20 +202,63 @@ function renderCourseChart(course) {
                     borderWidth: 3,
                     pointRadius: 5,
                     tension: 0.3,
-                    fill: false
+                    fill: false,
+                    yAxisID: "y"
+                },
+                {
+                    label: "Student Credit Hours",
+                    data: [
+                        course.sch_20243,
+                        course.sch_20253,
+                        course.sch_20263
+                    ],
+                    borderColor: "#4D7A5A",
+                    backgroundColor: "rgba(77,122,90,.15)",
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    tension: 0.3,
+                    fill: false,
+                    yAxisID: "y1"
                 }
             ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            interaction: {
+                mode: "index",
+                intersect: false
+            },
             plugins: {
                 title: {
                     display: true,
-                    text: "Enrollment Trend"
+                    text: "Enrollment & SCH Trend"
                 },
                 legend: {
-                    display: false
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    type: "linear",
+                    position: "left",
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Enrollment"
+                    }
+                },
+                y1: {
+                    type: "linear",
+                    position: "right",
+                    beginAtZero: true,
+                    grid: {
+                        drawOnChartArea: false
+                    },
+                    title: {
+                        display: true,
+                        text: "SCH"
+                    }
                 }
             }
         }
