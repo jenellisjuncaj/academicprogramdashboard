@@ -115,6 +115,11 @@ function renderTable(courses) {
             <td>${fmtNum(c.total_sch)}</td>
             <td>${fmtGrowth(c.sch_growth)}</td>
         `;
+        tr.style.cursor = "pointer";
+        tr.addEventListener("click", () => {
+            openCourseDrawer(c);
+        });
+
         coursesBody.appendChild(tr);
     });
 }
@@ -156,6 +161,72 @@ sortSelect.addEventListener("change", () => {
 searchInput.addEventListener("input", applyFiltersAndSort);
 instructorSelect.addEventListener("change", applyFiltersAndSort);
 domainSelect.addEventListener("change", applyFiltersAndSort);
+
+function openCourseDrawer(course) {
+    document.getElementById("drawerCourse").textContent = course.course || "—";
+    document.getElementById("drawerTitle").textContent = course.title || "";
+    document.getElementById("drawerInstructor").textContent = course.instructor || "—";
+    document.getElementById("drawerUnits").textContent = fmtNum(course.units);
+    document.getElementById("drawerSCH").textContent = fmtNum(course.total_sch);
+    document.getElementById("drawerGrowth").innerHTML = fmtGrowth(course.sch_growth);
+
+    renderCourseChart(course);
+
+    document.getElementById("courseDrawer").classList.add("open");
+}
+
+let courseChartInstance = null;
+
+function renderCourseChart(course) {
+    const ctx = document.getElementById("courseChart");
+    if (!ctx) return;
+
+    if (courseChartInstance) {
+        courseChartInstance.destroy();
+    }
+
+    courseChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: ["Fall 20243", "Fall 20253", "Fall 20263"],
+            datasets: [
+                {
+                    label: "Enrollment",
+                    data: [
+                        course.enrollment_20243,
+                        course.enrollment_20253,
+                        course.enrollment_20263
+                    ],
+                    borderColor: "#8C1515",
+                    backgroundColor: "rgba(140,21,21,.15)",
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    tension: 0.3,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Enrollment Trend"
+                },
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+}
+
+document.addEventListener("click", e => {
+    if (e.target.id === "closeDrawer") {
+        document.getElementById("courseDrawer").classList.remove("open");
+    }
+});
 
 fetch("data/courses.json")
     .then(res => res.json())
