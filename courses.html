@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Analytics — IYA Academic Portfolio Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .courses-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .toolbar-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .toolbar-field label {
+    font-size: .85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: #666;
+  }
+  .toolbar-field input,
+  .toolbar-field select {
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: white;
+    min-width: 220px;
+  }
+  .results-count {
+    color: #666;
+    font-size: .95rem;
+    margin-bottom: 16px;
+  }
+  th.sortable {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  th.sortable:hover {
+    color: var(--usc-red);
+  }
+  .sort-arrow {
+    font-size: .75rem;
+    margin-left: 4px;
+    opacity: .5;
+  }
+  .sort-arrow.active {
+    opacity: 1;
+    color: var(--usc-red);
+  }
+  .growth-up { color: var(--design); font-weight: 600; }
+  .growth-down { color: var(--usc-red); font-weight: 600; }
+  .growth-flat { color: #666; }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: var(--usc-red);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .back-link:hover { text-decoration: underline; }
+  .no-results {
+    padding: 40px;
+    text-align: center;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+<header class="hero">
+<div class="hero-content">
+<p class="eyebrow">USC Iovine and Young Academy</p>
+<a class="back-link" href="index.html">&larr; Back to Dashboard</a>
+<h1>Course Analytics</h1>
+<p class="hero-subtitle">Search, filter, and sort every course by enrollment, student credit hours, and growth across three terms.</p>
+<div class="hero-tag">Fall 20243 – Fall 20263</div>
+</div>
+</header>
+<main>
+<section>
+<div class="card">
+<div class="courses-toolbar">
+<div class="toolbar-field">
+<label for="searchInput">Search Course or Title</label>
+<input type="text" id="searchInput" placeholder="e.g. ACAD-176 or Rapid Visualization">
+</div>
+<div class="toolbar-field">
+<label for="domainSelect">Domain</label>
+<select id="domainSelect">
+<option value="">All Domains</option>
+<option value="Design">Design</option>
+<option value="Business">Business</option>
+<option value="Technology">Technology</option>
+<option value="CBRL">CBRL</option>
+<option value="unassigned">Unassigned</option>
+</select>
+</div>
+<div class="toolbar-field">
+<label for="instructorSelect">Instructor</label>
+<select id="instructorSelect">
+<option value="">All Instructors</option>
+</select>
+</div>
+<div class="toolbar-field">
+<label for="sortSelect">Sort By</label>
+<select id="sortSelect">
+<option value="total_sch-desc">Total SCH (High to Low)</option>
+<option value="total_sch-asc">Total SCH (Low to High)</option>
+<option value="enrollment_20263-desc">Latest Enrollment (High to Low)</option>
+<option value="enrollment_20263-asc">Latest Enrollment (Low to High)</option>
+<option value="sch_growth-desc">SCH Growth (High to Low)</option>
+<option value="sch_growth-asc">SCH Growth (Low to High)</option>
+<option value="course-asc">Course Code (A–Z)</option>
+</select>
+</div>
+</div>
+<div class="results-count" id="resultsCount"></div>
+<div class="table-container">
+<table id="coursesTable">
+<thead>
+<tr>
+<th class="sortable" data-key="course">Course<span class="sort-arrow">↕</span></th>
+<th>Title</th>
+<th>Instructor</th>
+<th class="sortable" data-key="domain">Domain<span class="sort-arrow">↕</span></th>
+<th class="sortable" data-key="units">Units<span class="sort-arrow">↕</span></th>
+<th class="sortable" data-key="enrollment_20243">Enroll. F24<span class="sort-arrow">↕</span></th>
+<th class="sortable" data-key="enrollment_20253">Enroll. F25<span class="sort-arrow">↕</span></th>
+<th class="sortable" data-key="enrollment_20263">Enroll. F26<span class="sort-arrow">↕</span></th>
+<th class="sortable" data-key="total_sch">Total SCH<span class="sort-arrow">↕</span></th>
+<th class="sortable" data-key="sch_growth">SCH Growth<span class="sort-arrow">↕</span></th>
+</tr>
+</thead>
+<tbody id="coursesBody">
+</tbody>
+</table>
+<div class="no-results" id="noResults" style="display:none;">No courses match your search or filter.</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="footer-text">USC Iovine and Young Academy • Academic Portfolio Dashboard</div>
+</footer>
+</div>
+<script src="js/courses.js"></script>
+</body>
+</html>
