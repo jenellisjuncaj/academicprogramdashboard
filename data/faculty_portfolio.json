@@ -1,111 +1,1815 @@
-/* ==========================================
-   IYA Faculty Portfolio
-   Render, Search, Expand
-========================================== */
-
-let allFaculty = [];
-
-const facultySearch = document.getElementById("facultySearch");
-const facultyList = document.getElementById("facultyList");
-
-function fmtNum(v) {
-    if (v === null || v === undefined) return "—";
-    return v.toLocaleString(undefined, { maximumFractionDigits: 1 });
-}
-
-function renderItem(item, term) {
-    let meta = `${fmtNum(item.units)} unit${item.units === 1 ? "" : "s"}`;
-
-    if (item.is_course) {
-        const enrollKey = term === "fall" ? "enrollment_fall2026" : "enrollment_spring2027";
-        const hasEnroll = item[enrollKey] !== undefined && item[enrollKey] !== null;
-
-        if (hasEnroll && item.enrollment_source === "stated_in_workbook") {
-            meta += ` &middot; Enrollment: ${fmtNum(item[enrollKey])} <span style="opacity:.6;">(reported)</span>`;
-            if (item.sch_fall2026 !== undefined && item.sch_fall2026 !== null) {
-                meta += ` &middot; SCH: ${fmtNum(item.sch_fall2026)}`;
-            }
-        } else if (hasEnroll && item.enrollment_source === "matched_course_data") {
-            meta += ` &middot; Enrollment: ${fmtNum(item[enrollKey])} &middot; SCH: ${fmtNum(item.sch_fall2026)}`;
-        } else if (item.enrollment_note) {
-            meta += ` &middot; <span style="opacity:.7;">${item.enrollment_note}</span>`;
-        } else {
-            meta += ` &middot; <span style="opacity:.7;">No matching course data found</span>`;
-        }
+{
+  "faculty": [
+    {
+      "name": "Aaron Siegel",
+      "title_lines": [
+        "Associate Teaching Professor; FT",
+        "Contract: three year ending May 2028; promoted to Assoc. in SU25"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 176 - Rapid Vis for HTI",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-176",
+            "enrollment_fall2026": 87.0,
+            "sch_fall2026": 348.0
+          },
+          {
+            "description": "ACAD 189 - 3D Tools for Product Design",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-189",
+            "enrollment_fall2026": 21.0,
+            "sch_fall2026": 42.0
+          },
+          {
+            "description": "IDSN 540 - Processes and Perspectives (in-person)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-540",
+            "enrollment_fall2026": 78.0,
+            "sch_fall2026": 312.0
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "ACAD 220 - Data Analytics and Information Design (2 of 4; co-teach w/?)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-220",
+            "enrollment_fall2026": null,
+            "sch_fall2026": null
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 280 - Information Design",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-280",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 536 - Designing Networked Objects (hybrid)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-536",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 178 - Motion Graphics",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-178",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 186 - Computation Visual Design",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-186",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "Carsten Becker",
+      "title_lines": [
+        "Lecturer; FTE; under review for promotion for FA26",
+        "Contract: semester"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 217 - Extended Reality Design retain 4 untis for FA26 (coordinate with Tech team to pre-plan sessions prior to semester start Carsten Becker)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-217",
+            "enrollment_fall2026": 36.0,
+            "sch_fall2026": 144.0
+          },
+          {
+            "description": "IDSN 538 - Extended Reality Technologies (online)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-538",
+            "enrollment_fall2026": 41.0,
+            "sch_fall2026": 82.0
+          },
+          {
+            "description": "IDSN 538 - Extended Reality Technologies (in-person)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-538",
+            "enrollment_fall2026": 41.0,
+            "sch_fall2026": 82.0
+          },
+          {
+            "description": "Admissions",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 9
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 207 - Narrative Tech and the Human Experience",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-207",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN XXX - alternative for IDSN 537 for SP27 rooted in Product Innovation (3 units?)",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 9
+      },
+      "year_total_units": 18
+    },
+    {
+      "name": "Chris Swain",
+      "title_lines": [
+        "Associate Teaching Professor; FT",
+        "Contract: three year ending May 15, 2028; promoted to Assoc. in SU25"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 182 -  Disruptive Validation *for minors",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-182",
+            "enrollment_fall2026": 15.0,
+            "sch_fall2026": 60.0
+          },
+          {
+            "description": "ACAD 406 -  Purpose Driven Innovation Incubator  *Hybrid",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-406",
+            "enrollment_fall2026": 62.0,
+            "sch_fall2026": 124.0
+          },
+          {
+            "description": "ACAD 185 - Analytics & Marketing for Challenge-Based Innovation *same as 182 but for majors",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-185",
+            "enrollment_fall2026": 38.0,
+            "sch_fall2026": 152.0
+          },
+          {
+            "description": "Innovation Quest: Mentor Network managment",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 12
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 181 -  Disruptive Innovation  *for minors; GE class",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-181",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 599 - Special Topics: Analytics and Marketing for Challenge-Based Innovation (Hybrid) OR ACAD 406",
+            "units": 3.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 523 - Product Design for User Experience (on the ground only or hybrid?)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-523",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD ### - Marketing and Analytics for CBI for SP27",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 12
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "Davina Wolter",
+      "title_lines": [
+        "Associate Professor of Practice; FT",
+        "Contract: three year ending May 15, 2026?"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 324g - Practice of Design (3 units as Lead Instructor; 1 of 2 Sections for majors; co-teach w/Olamiposi at 67 hours for course)",
+            "units": 2.5,
+            "is_course": true,
+            "course_code": "ACAD-324G",
+            "enrollment_fall2026": 84.0,
+            "sch_fall2026": 336.0
+          },
+          {
+            "description": "ACAD 324g - Practice of Design (3 units as Lead Instructor; 1 of 2 Sections for majors; co-teach w/Olamiposi at 67 hours for course)",
+            "units": 2.5,
+            "is_course": true,
+            "course_code": "ACAD-324G",
+            "enrollment_fall2026": 84.0,
+            "sch_fall2026": 336.0
+          },
+          {
+            "description": "Associate Dean",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions & Program Building",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 10
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 281 - Constructing Experiences",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-281",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 522 - Inclusive Design (online)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-522",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 599 - Special Topics: Constructing Experiences (in-person only)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Associate Dean",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions & Program Building",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "year_total_units": 23
+    },
+    {
+      "name": "Doug Thomas",
+      "title_lines": [
+        "Associate Professor (tenure home with Annenberg); FT / RAF profile",
+        "Contract: annual loan from Annenberg"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 408 - Understanding AI  *in-person",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-408"
+          },
+          {
+            "description": "ACAD 309g -  Dreams & Madness: Animation *in-person",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-309G",
+            "enrollment_fall2026": 140.0,
+            "sch_fall2026": 560.0
+          },
+          {
+            "description": "R&D activity  *at Annenberg",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 12
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "IDSN 599 - Research Lab for HTI",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 309g -  Dreams & Madness: Animation *in-person",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-309G",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "R&D activity  *at Annenberg",
+            "units": 6.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 12
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "Grant Delgatty",
+      "title_lines": [
+        "Associate Professor of Practice; FT",
+        "Contract: three year ending June 2028"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 245 - Fundamentals Product Design",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-245",
+            "enrollment_fall2026": 41.0,
+            "sch_fall2026": 164.0
+          },
+          {
+            "description": "ACAD 444 - Designing Products for Industry - Partners TBD",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-444",
+            "enrollment_fall2026": 34.0,
+            "sch_fall2026": 136.0
+          },
+          {
+            "description": "PRIN 520 -  Creator Studio",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "PRIN-520",
+            "enrollment_fall2026": 14.0,
+            "sch_fall2026": 56.0
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 245 - Fundamentals Product Design",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-245",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 445 - Designing Products for Licensing - Partners TBD",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-445",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "PPR",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "John Bruneau",
+      "title_lines": [
+        "Assistant Professor of Teaching; FT",
+        "Contract: one year ending May 15, 2026; promoted to Asst in SU23"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "IDSN 533 -  Mobile Application Development  *online",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-533",
+            "enrollment_fall2026": 25.0,
+            "sch_fall2026": 100.0
+          },
+          {
+            "description": "ACAD 230 -  Introduction to Interactive Physical Computing",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-230",
+            "enrollment_fall2026": 32.0,
+            "sch_fall2026": 128.0
+          },
+          {
+            "description": "ACAD 191 -  Python for Machine Intelligence  *all materials provided by MC",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-191",
+            "enrollment_fall2026": 38.0,
+            "sch_fall2026": 76.0
+          },
+          {
+            "description": "Admissions",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "2.0",
+            "units": 30.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 10
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "IDSN 539 - XR Development (in-person only)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-539",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 572 - Imbeded Computing for Human  Performance  (in-person only)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-572",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD-275 Dev1  *Majors + OR ACAD 230 -  Introduction to Interactive Physical Computing",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-275",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions -  Interviews only",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "CBRL in XR (Sony, etc)*",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "year_total_units": 23
+    },
+    {
+      "name": "Keanan Duffty",
+      "title_lines": [
+        "Lecturer (TBD); FTE contract in process with Roski as partner - 12-14 units for IYA or year",
+        "Contract: semester"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "IDSN 581 -  Intro to Global Fashion Systems *hybrid",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-581",
+            "enrollment_fall2026": 34.0,
+            "sch_fall2026": 68.0
+          },
+          {
+            "description": "IDSN 597 -  Industry Practicum in Fashion Innovation *hybrid",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-597",
+            "enrollment_fall2026": 37.0,
+            "sch_fall2026": 148.0
+          },
+          {
+            "description": "ROSKI ASSIGNMENT",
+            "units": 5.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions Reviews *as part of service",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 307 Punk & CounterCulture  *in-person",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-307",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 583 - Future Fashion: Sustainable Systems & Strategies (HYBRID)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-583",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ROSKI ASSIGNMENT",
+            "units": 5.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions Reviews *as part of service",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 599 (582) - Product Management for Fashion Innovation 2-4 units for FA26 (online)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Roski exchange; starts FA26",
+            "units": 8.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 599 (582) - Product Management for Fashion Innovation (HYBRID) @4 units OR  New Punk & CounterCulture Course for 2 units?",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "Kia McCormick",
+      "title_lines": [
+        "Lecturer; FTE-like",
+        "Contract: semester"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 188 -  Modeling Products with Solidworks",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-188",
+            "enrollment_fall2026": 32.0,
+            "sch_fall2026": 64.0
+          },
+          {
+            "description": "ACAD 176 - Rapid Vis  (Majors section 1 of 2)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-176",
+            "enrollment_fall2026": 87.0,
+            "sch_fall2026": 348.0
+          },
+          {
+            "description": "ACAD 450 - Cactus Jack Course w/Annenberg as lab; assigned by Dean Kun",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-450",
+            "enrollment_fall2026": 15.0,
+            "sch_fall2026": 30.0
+          },
+          {
+            "description": "ACAD 190 -  Materials",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-190",
+            "enrollment_fall2026": 32.0,
+            "sch_fall2026": 64.0
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 188 - Modeling Products with Solidworks",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-188",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 176 - Rapid Vis (Minors)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-176",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 8
+      },
+      "year_total_units": 19
+    },
+    {
+      "name": "Matthew Manos",
+      "title_lines": [
+        "Associate Professor of Practice; FT",
+        "Contract: three year ending June 2026?"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 475a -  Garage  *Thomas for .5 unit",
+            "units": 3.5,
+            "is_course": true,
+            "course_code": "ACAD-475A",
+            "enrollment_fall2026": 52.0,
+            "sch_fall2026": 208.0
+          },
+          {
+            "description": "IDSN 547 -  Industry & Impact Projects",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-547"
+          },
+          {
+            "description": "Associate Dean",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions & Program Building",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "4.0",
+            "units": 30.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 10.5
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 360 -  Design Strategy (in-person section)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-360",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 585 -  Capstone",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-585",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Associate Dean",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions & Program Building",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "year_total_units": 23.5
+    },
+    {
+      "name": "SeoYoon Sung",
+      "title_lines": [
+        "Assistant Research Professor: FT / RAF Profile",
+        "Contract: three year ending May 15, 2026"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 325 - Human technology interaction and the human experience",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-325",
+            "enrollment_fall2026": 19.0,
+            "sch_fall2026": 76.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Directed Research",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "R&D activity",
+            "units": 4.5,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 10.5
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 325 - Human technology interaction and the human experience",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-325",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 599 - Research Lab for HTI",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "R&D activity",
+            "units": 4.5,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 13.5
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "Safir Bellali",
+      "title_lines": [
+        "Lecturer; FTE for AY26-27",
+        "Contract: semester",
+        "-........................"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "PPR",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "IDSN 524 - Physical Product Design",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-524",
+            "enrollment_fall2026": 34.0,
+            "sch_fall2026": 136.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "ACAD 245 - Fundamentals Product Design",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-245",
+            "enrollment_fall2026": 41.0,
+            "sch_fall2026": 164.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 245 - Fundamentals Product Design",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-245",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 524 - Physical Product Design",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-524",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 9
+      },
+      "year_total_units": 20
+    },
+    {
+      "name": "Patrick Dent",
+      "title_lines": [
+        "Professor of Teaching; FT",
+        "Contract: three year ending May 15, 2028"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 274 - Designing Interactive Data Systems",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-274",
+            "enrollment_fall2026": 40.0,
+            "enrollment_source": "stated_in_workbook"
+          },
+          {
+            "description": "ACAD 276 - Dev II",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-276",
+            "enrollment_fall2026": 40.0,
+            "enrollment_source": "stated_in_workbook"
+          },
+          {
+            "description": "ACAD 419 - Professional Internship",
+            "units": 0.0,
+            "is_course": true,
+            "course_code": "ACAD-419",
+            "enrollment_fall2026": null,
+            "sch_fall2026": null,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Academic Affairs Liason",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions & Program Building",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 274 - Designing Interactive Data Systems",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-274",
+            "enrollment_spring2027": 40.0,
+            "enrollment_source": "stated_in_workbook"
+          },
+          {
+            "description": "IDSN 530 - Technology Essentials",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-530",
+            "enrollment_spring2027": 40.0,
+            "enrollment_source": "stated_in_workbook"
+          },
+          {
+            "description": "ACAD 419 - Professional Internship",
+            "units": 0.0,
+            "is_course": true,
+            "course_code": "ACAD-419",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Academic Affairs Liason",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions & Program Building",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "year_total_units": 22
+    },
+    {
+      "name": "Olamiposi Somoye",
+      "title_lines": [
+        "Lecturer; FTE",
+        "Contract: semester"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 177 - Digital Toolbox: Design",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-177",
+            "enrollment_fall2026": 20.0,
+            "sch_fall2026": 40.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "ACAD 324g - Practice of Design (1.5 of 4 units; 1 of 2 Sections for majors; co-teach w/Davina, 67 hours allotted",
+            "units": 1.5,
+            "is_course": true,
+            "course_code": "ACAD-324G",
+            "enrollment_fall2026": 84.0,
+            "sch_fall2026": 336.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "ACAD 324g - Practice of Design (1.5 of 4 units; 1 of 2 Sections for majors; co-teach w/Davina, 67 hours allotted",
+            "units": 1.5,
+            "is_course": true,
+            "course_code": "ACAD-324G",
+            "enrollment_fall2026": 84.0,
+            "sch_fall2026": 336.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 7
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "IDSN 537 - XR For Fashion (co-teach 1 of 4)",
+            "units": 1.0,
+            "is_course": true,
+            "course_code": "IDSN-537",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 177 - Digital Toolbox: Design",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-177",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 580 - Textiles for Fashion Innovation - 4",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-580",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "DANC 482 - Improvisational Strategies in Movement & Materiality - ? Co-teach w/d. Sabela Grimes (Requested by DANC team SP26 for rerelease in SP27 at Tuesday/Thursday from 6:00pm-7:40pm)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "DANC-482",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 324g - Practice of Design (minor section for spring)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-324G",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 14
+      },
+      "year_total_units": 21
+    },
+    {
+      "name": "Mike Kanazawa",
+      "title_lines": [
+        "Distinguished Lecturer; FTE",
+        "Contract: semester"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 183 -  Product Management for Challenge-Based Innovation",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-183",
+            "enrollment_fall2026": 78.0,
+            "sch_fall2026": 312.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "IDSN 599 -  Product Management  *Hybrid",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_fall2026": 54.0,
+            "sch_fall2026": 216.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Venture Studio - Partner Development?",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "On-the-ground Mentoring",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "IDSN 599 -  Product Management  *online only",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Venture Studio - Partner Development?",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 183 Product Management (New DI)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-183",
+            "enrollment_spring2027": 40.0,
+            "enrollment_source": "stated_in_workbook"
+          }
+        ],
+        "semester_total_units": 7
+      },
+      "year_total_units": 18
+    },
+    {
+      "name": "Yihyun Lim",
+      "title_lines": [
+        "Assistant Professor of Practice; FT",
+        "Contract: three year contract ending June 2026; under promotion review"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 376 - Industry Practicum (co-teach with Thomas, in-person)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-376",
+            "enrollment_fall2026": 74.0,
+            "sch_fall2026": 296.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "IDSN 540 - Processes and Perspectives (online)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-540",
+            "enrollment_fall2026": 78.0,
+            "sch_fall2026": 312.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "IDSN 523 - Product Design for User Experience (online only)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-523",
+            "enrollment_fall2026": 44.0,
+            "sch_fall2026": 176.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Fall: IDSN 547 Industry and Impact Projects (online section); 2 units  *CARRIED OVER FROM FA25-SP26 CONTRACT DUE TO SU26 LOW ENROLLMENT",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "4.0",
+            "units": 30.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "4.0",
+            "units": 30.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "IDSN 551 - Design Strategy (online)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-551",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 560 Narrative & Storytelling (online)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-560",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 546 Integrative Studio (online),   using the same concept as we do in the summer and as usual, i.e. focus on student-initiated project",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-546",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Spring: PPR; 2 units (in-person) *CARRIED OVER FROM FA25-SP26 CONTRACT DUE TO SU26 LOW ENROLLMENT",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD xxx - Design Strategy for HTI - SP26",
+            "units": 4.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_spring2027": 30.0,
+            "enrollment_source": "stated_in_workbook"
+          }
+        ],
+        "semester_total_units": 13
+      },
+      "year_total_units": 28
+    },
+    {
+      "name": "Tina Sharkey",
+      "title_lines": [
+        "Lecturer; FTE",
+        "Contract:  one year ending June 2026"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "IDSN 529 - Branding Strategy for Startups (online)",
+            "units": 3.0,
+            "is_course": true,
+            "course_code": "IDSN-529",
+            "enrollment_fall2026": 36.0,
+            "sch_fall2026": 108.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Innovation Quest",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "On-the-ground Mentoring",
+            "units": 0.5,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "2.0",
+            "units": 40.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 6.5
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "IDSN 502 - Modern Brand Community Playbook (online)",
+            "units": 3.0,
+            "is_course": true,
+            "course_code": "IDSN-502",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Innovation Quest",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "On-the-ground Mentoring",
+            "units": 0.5,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 6.5
+      },
+      "year_total_units": 13
+    },
+    {
+      "name": "Thomas Dadourian",
+      "title_lines": [
+        "Lecturer; FTE",
+        "Contract: semester"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "IDSN 579 - Social Media Incubator (in-person)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-579",
+            "enrollment_fall2026": 76.0,
+            "sch_fall2026": 152.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "IDSN 579 - Social Media Incubator (online) - second section",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-579",
+            "enrollment_fall2026": 76.0,
+            "sch_fall2026": 152.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "ACAD 174 - Innovators Forum (co-teach w/Steve Child)",
+            "units": 1.0,
+            "is_course": true,
+            "course_code": "ACAD-174",
+            "enrollment_fall2026": 75.0,
+            "sch_fall2026": 150.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "ACAD 475a - Garage, co-taught with Matthew Manos  (22 hours commitment at .5 unit assignment)",
+            "units": 0.5,
+            "is_course": true,
+            "course_code": "ACAD-475A",
+            "enrollment_fall2026": 52.0,
+            "sch_fall2026": 208.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "ACAD 376 - Industry Practicum (co-teach with Yihyun, TBD)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-376",
+            "enrollment_fall2026": 74.0,
+            "sch_fall2026": 296.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Innovation Quest",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 9.5
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "IDSN 599 - Crowdfunding (hybrid, or if second section online)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IDSN 599 - Crowdfunding (hybrid, or if second section online requested by KK on 8.11.26)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-599",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 174 - Innovators Forum (co-teach w/Steve Child)",
+            "units": 1.0,
+            "is_course": true,
+            "course_code": "ACAD-174",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 475b GX with Steve",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-475B",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "IYA Marketing Support",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions Reviews",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "& Service (Mentoring, Career Development)",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 10
+      },
+      "year_total_units": 19.5
+    },
+    {
+      "name": "Thanassis Rikakis",
+      "title_lines": [
+        "Professor; FT / RAF Profile",
+        "Contract: Tenured"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "IDSN 542 - Intro to Machine Intelligence (Hybrid)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "IDSN-542",
+            "enrollment_fall2026": 36.0,
+            "sch_fall2026": 144.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "R&D activity",
+            "units": 6.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 10
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 432 - Collaborative Prototyping Health Innovation - Protoyping with Industry (in-person)",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-432",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 222 - Intro to MI",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-222",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "R&D activity",
+            "units": 6.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 14
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "Tamim Ahmed",
+      "title_lines": [
+        "Post Doc; RAF Profile (ish)",
+        "Contract: one year ending May 2027?"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "R&D activity - xx ASSIGNMENT",
+            "units": 12.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 12
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 543 - Augmented Intelligence",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-543",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "R&D activity - xx ASSIGNMENT",
+            "units": 8.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 0.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 12
+      },
+      "year_total_units": 24
+    },
+    {
+      "name": "Steve Child",
+      "title_lines": [
+        "Professor of Teaching; FT",
+        "Contract: five year ending May 15, 2030"
+      ],
+      "fall_2026": {
+        "items": [
+          {
+            "description": "ACAD 174 - Innovators Forum (co-teach w/Thomas)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-174",
+            "enrollment_fall2026": 75.0,
+            "sch_fall2026": 150.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "IDSN 521 - Designing Brand Identity for Startups (In-person)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "IDSN-521",
+            "enrollment_fall2026": 57.0,
+            "sch_fall2026": 114.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "ACAD 176 - Rapid Vis (Majors+ )",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-176",
+            "enrollment_fall2026": 87.0,
+            "sch_fall2026": 348.0,
+            "enrollment_source": "matched_course_data"
+          },
+          {
+            "description": "Chair of Design *unit release",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null
+          },
+          {
+            "description": "2.0",
+            "units": 30.0,
+            "is_course": false,
+            "course_code": null
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "spring_2027": {
+        "items": [
+          {
+            "description": "ACAD 174 - Innovators Forum (co-teach w/Thomas)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-174",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 176 - Rapid Vis (Majors+ )",
+            "units": 4.0,
+            "is_course": true,
+            "course_code": "ACAD-176",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 475 - GX with Chris Swain/TBD (2 of 4)",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-475",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Chair of Design *unit release",
+            "units": 2.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "Admissions",
+            "units": 1.0,
+            "is_course": false,
+            "course_code": null,
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          },
+          {
+            "description": "ACAD 177 - Digital Toolbox: Design",
+            "units": 2.0,
+            "is_course": true,
+            "course_code": "ACAD-177",
+            "enrollment_note": "Spring term data not available in course analytics (Fall-only dataset)"
+          }
+        ],
+        "semester_total_units": 11
+      },
+      "year_total_units": 22
     }
-
-    const badge = item.is_course ? `<span class="item-badge">COURSE</span>` : "";
-
-    return `
-        <div class="item-row">
-            <div class="item-desc">${item.description}${badge}</div>
-            <div class="item-meta">${meta}</div>
-        </div>
-    `;
+  ]
 }
-
-function renderFacultyCard(f) {
-    const card = document.createElement("div");
-    card.className = "card faculty-card";
-
-    card.innerHTML = `
-        <div class="faculty-card-header">
-            <div>
-                <h3>${f.name}</h3>
-                <div class="faculty-title-lines">${f.title_lines.join(" &middot; ")}</div>
-            </div>
-            <div style="display:flex; align-items:center; gap:12px;">
-                <div class="faculty-year-total">${fmtNum(f.year_total_units)} units / year</div>
-                <span class="expand-icon">&#9660;</span>
-            </div>
-        </div>
-        <div class="faculty-detail">
-            <div class="term-columns">
-                <div class="term-block">
-                    <h4>Fall 2026</h4>
-                    <div class="term-total">${fmtNum(f.fall_2026.semester_total_units)} units this semester</div>
-                    ${f.fall_2026.items.map(i => renderItem(i, "fall")).join("")}
-                </div>
-                <div class="term-block">
-                    <h4>Spring 2027</h4>
-                    <div class="term-total">${fmtNum(f.spring_2027.semester_total_units)} units this semester</div>
-                    ${f.spring_2027.items.map(i => renderItem(i, "spring")).join("")}
-                </div>
-            </div>
-        </div>
-    `;
-
-    card.addEventListener("click", () => {
-        card.classList.toggle("expanded");
-    });
-
-    return card;
-}
-
-function renderList(faculty) {
-    facultyList.innerHTML = "";
-    if (faculty.length === 0) {
-        facultyList.innerHTML = `<div class="card" style="text-align:center; color:#666;">No faculty match your search.</div>`;
-        return;
-    }
-    faculty.forEach(f => {
-        facultyList.appendChild(renderFacultyCard(f));
-    });
-}
-
-facultySearch.addEventListener("input", () => {
-    const q = facultySearch.value.trim().toLowerCase();
-    const filtered = allFaculty.filter(f => f.name.toLowerCase().includes(q));
-    renderList(filtered);
-});
-
-fetch("data/faculty_portfolio.json")
-    .then(res => res.json())
-    .then(data => {
-        allFaculty = data.faculty.sort((a, b) => a.name.localeCompare(b.name));
-        renderList(allFaculty);
-    })
-    .catch(err => {
-        facultyList.innerHTML = `<div class="card">Could not load faculty portfolio data.</div>`;
-        console.error(err);
-    });
